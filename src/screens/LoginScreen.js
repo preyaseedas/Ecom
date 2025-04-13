@@ -3,6 +3,7 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 import CustomButton from '../common/CustomButton';
 import {TouchableOpacity} from 'react-native';
 import {TextInput} from 'react-native-paper';
+import HomePageTabBar from './HomePageTabBar';
 
 const LoginScreen = () => {
   const [phoneNo, setPhoneNO] = React.useState();

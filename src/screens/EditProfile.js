@@ -4,11 +4,16 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import CustomButton from '../common/CustomButton';
 import PreviewButton from '../common/PreviewButton';
 import {TextInput} from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 //import {OutlinedTextField} from 'rn-material-ui-textfield';
 const EditProfile = () => {
   const [text, setText] = React.useState('');
-const navigation = useNavigation();
+  const [email, setEmail] = React.useState('');
+
+  const [mobileNo, setMobileNo] = React.useState();
+  const [address, setAddress] = React.useState('');
+
+  const navigation = useNavigation();
   return (
     <View style={{padding: 20, flex: 1, justifyContent: 'space-between'}}>
       <View style={{flex: 0.8}}>
@@ -30,46 +35,74 @@ const navigation = useNavigation();
         <TextInput
           mode="outlined"
           label="Name"
+          activeOutlineColor="green"
           contentStyle={{
-            borderWidth: 0.3,
-            borderRadius: 4,
+            height: 60,
+            borderRadius: 12,
             borderColor: 'green',
           }}
           outlineColor="green"
           value={text}
           onChangeText={x => setText(x)}
-        />
-        <TextInput
-          mode="outlined"
-          label="Email Address"
-          contentStyle={{borderWidth: 1, borderRadius: 4, borderColor: 'green'}}
-          outlineColor="green"
-          value={text}
-          onChangeText={x => setText(x)}
-        />
-        <TextInput
-          mode="outlined"
-          label="Mobile No"
-          contentStyle={{
-            borderWidth: 0.3,
-            borderRadius: 4,
-            borderColor: 'green',
-          }}
-          outlineColor="green"
-          value={text}
-          onChangeText={x => setText(x)}
+          style={{marginBlock: 2}}
         />
         <TextInput
           mode="outlined"
           label="Enter Address"
+          activeOutlineColor="green"
           contentStyle={{
-            borderWidth: 0.3,
-            borderRadius: 4,
+            height: 60,
+            borderRadius: 12,
             borderColor: 'green',
           }}
           outlineColor="green"
-          value={text}
-          onChangeText={x => setText(x)}
+          value={email}
+          onChangeText={x => setEmail(x)}
+          style={{marginBlock: 2}}
+        />
+        {/* <TextInput
+          label="Email Address"
+      
+          activeUnderlineColor="green"
+          contentStyle={{
+            borderWidth: 1,
+            borderRadius: 4,
+            borderColor: 'green',
+            backgroundColor: 'transparent',
+          }}
+         
+          value={address}
+          onChangeText={x => setAddress(x)}
+        />  
+         */}
+        <TextInput
+          mode="outlined"
+          label="Mobile No"
+          activeOutlineColor="green"
+          contentStyle={{
+            height: 60,
+            borderRadius: 12,
+            borderColor: 'green',
+          }}
+          outlineColor="green"
+          textColor="black"
+          value={mobileNo}
+          onChangeText={x => setMobileNo(x)}
+          style={{marginBlock: 2}}
+        />
+        <TextInput
+          mode="outlined"
+          label="Enter Address"
+          activeOutlineColor="green"
+          contentStyle={{
+            height: 60,
+            borderRadius: 12,
+            borderColor: 'green',
+          }}
+          outlineColor="green"
+          value={address}
+          onChangeText={x => setAddress(x)}
+          style={{marginBlock: 2}}
         />
       </View>
       {/* <OutlinedTextField
@@ -85,7 +118,12 @@ const navigation = useNavigation();
         onChangeText={() => {}}
       */}
       <View style={{flex: 0.2}}>
-        <CustomButton title="Update"  onButtonPress={()=> navigation.goBack()}/>
+        <CustomButton
+          title="Update"
+          onButtonPress={() => {
+            navigation.goBack();
+          }}
+        />
       </View>
     </View>
   );

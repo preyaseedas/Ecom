@@ -2,21 +2,23 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {
   Image,
-  ImageBackground,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
 
-import IconBar from '../common/IconBar';
-import {Searchbar} from 'react-native-paper';
+//import IconBar from '../common/IconBar';
+//import {Searchbar} from 'react-native-paper';
+
+import {Colors} from '../common/Colors';
 //import { SearchBar } from '@rneui/themed';
 //import { SearchBar } from 'react-native-elements';
 
 const HomePage = props => {
   const navigation = useNavigation();
-  const [search, setSearch] = useState('');
+  const [searchText, setSearchText] = useState('');
 
   return (
     <View>
@@ -25,29 +27,71 @@ const HomePage = props => {
           style={{
             display: 'flex',
             flexDirection: 'row',
-            justifyContent: 'space-between',
+            justifyContent: 'space-between', alignItems:"center"
           }}>
           <Text style={styles.appNamingText}>D,Grosse</Text>
-          <Image style={{height:20, width:20}} source={require('../assets/images/notifications.png')} />
+          <Image
+            style={{height: 20, width: 20}}
+            source={require('../assets/images/notifications.png')}
+          />
         </View>
         <TouchableOpacity
           style={styles.locationContainer}
           onPress={() => {
             navigation.navigate('selectLocation');
           }}>
-          <Image
-            style={styles.logo}
-            source={require('../assets/images/locationLogo.png')}
-          />
-          <View>
-            <Text>Your Location</Text>
-            <Text>{props.chooseLocation}</Text>
+          <View style={{flexDirection: 'row'}}>
+            {' '}
+            <Image
+              style={styles.logo}
+              source={require('../assets/images/locationLogo.png')}
+            />
+            <View>
+              <Text style={{fontSize: 12, letterSpacing: 0.2, color: 'grey'}}>
+                Your Location
+              </Text>
+              <Text
+                style={{
+                  fontSize: 14,
+                  letterSpacing: 0.2,
+                  color: 'black',
+                  fontWeight: 500,
+                }}>
+                32 Llanberis Close, Tonteg, CF38 1HR
+              </Text>
+            </View>
           </View>
           <Image
             style={styles.nextArrow}
             source={require('../assets/images/nextArrow.png')}
           />
         </TouchableOpacity>
+        <View
+          style={{
+            width: '100%',
+            height: 50,
+            backgroundColor: '#ddd',
+            paddingHorizontal: 15,
+            alignItems: 'center',
+            flexDirection: 'row',
+            borderRadius: 8,
+            marginTop: 10,
+            color: 'red',
+          }}>
+          <TouchableOpacity>
+            <Image
+              style={{height: 24, width: 24, marginRight: 15}}
+              source={require('../assets/images/searchIcon.png')}
+            />
+          </TouchableOpacity>
+          <TextInput
+            placeholder="Search"
+            value={searchText}
+            onChangeText={setSearchText}
+            placeholderTextColor={'grey'}
+            style={{fontSize: 18, fontWeight: 400, backgroundColor: '#ddd'}}
+          />
+        </View>
 
         {/*<SearchBar 
    placeholder="Search"
@@ -60,7 +104,7 @@ const HomePage = props => {
 
         <View
           style={{
-            height: 150,
+            height: 130, marginTop:15,
             width: '100%',
             backgroundColor: 'red',
             borderRadius: 15,
@@ -86,7 +130,7 @@ const HomePage = props => {
               style={{
                 borderRadius: 10,
                 marginTop: 10,
-                backgroundColor: 'green',
+                backgroundColor: Colors.light_green,
                 paddingHorizontal: 18,
                 paddingVertical: 3,
               }}>
@@ -121,7 +165,12 @@ const HomePage = props => {
           {id: 5, img: require('../assets/images/chips.png'), name: 'Snacks'},
           {id: 6, img: require('../assets/images/dairy.png'), name: 'Dairy'},
         ].map(item => (
-          <TouchableOpacity key={item.id} style={styles.item} onPress={() =>{navigation.navigate(item.name)}}>
+          <TouchableOpacity
+            key={item.id}
+            style={styles.item}
+            onPress={() => {
+              navigation.navigate(item.name);
+            }}>
             <Image source={item.img} style={styles.image} />
             <Text>{item.name}</Text>
           </TouchableOpacity>
@@ -134,9 +183,7 @@ const HomePage = props => {
           backgroundColor: 'blue',
           flex: 1,
           justifyContent: 'flex-end',
-        }}>
-        <IconBar />
-      </View>
+        }}></View>
     </View>
   );
 };
@@ -148,14 +195,14 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   locationContainer: {
-    borderWidth: 1,
-    borderColor: 'red',
     width: '100%',
     height: 45,
     display: 'flex',
     flexDirection: 'row',
+
+    marginTop: 10,
+    alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: 20,
   },
   appNamingText: {
     fontWeight: 600,
@@ -165,14 +212,15 @@ const styles = StyleSheet.create({
   logo: {
     height: 45,
     width: 45,
+    marginRight: 10,
   },
   nextArrow: {
-    width: 10,
-    height: 18,
+    width: 24,
+    height: 24,
   },
   offerContainer: {
     width: '100%',
-    height: 130,
+    height: 100,
     borderColor: 'red',
     borderWidth: 2,
     marginTop: 20,
@@ -205,11 +253,11 @@ const styles = StyleSheet.create({
     padding: 15,
     marginVertical: 10,
     borderRadius: 10,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    //shadowColor: '#000',
+    // shadowOffset: {width: 0, height: 2},
+    // shadowOpacity: 0.1,
+    // shadowRadius: 4,
+    //elevation: 3,
   },
   image: {
     width: 100,

@@ -38,11 +38,6 @@ const SelectLocation = () => {
   return (
     <View style={{flex: 1, padding: 20}}>
       <View style={{flex: 1}}>
-        <PreviewButton
-          onButtonPress={() => {
-            navigation.navigate('start');
-          }}
-        />
         <View style={styles.container}>
           <Image
             style={styles.map}
@@ -151,7 +146,7 @@ const SelectLocation = () => {
             buttonTextStyle={{color: 'white'}}
             title={'submit'}
             onButtonPress={() => {
-              navigation.navigate('homePage');
+              navigation.replace('homePage');
             }}
           />
         </View>
