@@ -9,11 +9,10 @@ import {
 } from 'react-native';
 import {Colors} from '../common/Colors';
 import CustomButton from '../common/CustomButton';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 const MyProfile = props => {
-
-  const navigation= useNavigation();
+  const navigation = useNavigation();
   const loginOptionList = [
     {
       id: '1',
@@ -39,7 +38,6 @@ const MyProfile = props => {
     },
   ];
 
-
   const logOutOptionList = [
     {
       id: '1',
@@ -55,8 +53,13 @@ const MyProfile = props => {
   ];
 
   return (
-    <View style={{flex: 1}}>
-      <View style={styles.ProfileViewContainer}>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'space-between',
+        flexDirection: 'column',
+      }}>
+      <View style={[styles.ProfileViewContainer]}>
         <Text style={styles.headingText}> My Profile</Text>
         <View style={styles.innerContainer}>
           <View style={styles.avatarContainer}>
@@ -71,42 +74,72 @@ const MyProfile = props => {
               source={require('../assets/images/edit.png')}
             />
           </View>
-          <View>
+          <View style={{paddingHorizontal: 5, flex: 1}}>
             <Text style={styles.nameText}>Name {props.name}</Text>
             <Text style={styles.emailText}>
-              {props.email} kkkkkkkkkkkkkkkkkkkkk
+              {props.email}Kkkkkkkkkkkkkkkkkkkkkk
             </Text>
           </View>
         </View>
       </View>
 
-      <View style={{display: 'flex', justifyContent:"space-evenly", flex:2}}>
-       <View>
-          <FlatList
+      <View style={{padding: 20}}>
+        <View>
+        {login ?
+          (<FlatList
+            data={logOutOptionList}
+            keyExtractor={item => item.id}
+            renderItem={({item}) => (
+              <View>
+                <TouchableOpacity
+                  style={styles.optionContainer}
+                  onPress={() => {
+                    navigation.navigate(item.title);
+                  }}>
+                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <Image
+                      style={styles.optionContainerIcon}
+                      source={item.icon}
+                    />
+                    <Text style={styles.optionContainerText}>{item.title}</Text>
+                  </View>
+                  <Image
+                    style={styles.optionContainerIcon}
+                    source={require('../assets/images/nextArrow.png')}
+                  />
+                </TouchableOpacity>
+              </View>
+            )}
+          />) :  
+           (<FlatList
             data={loginOptionList}
             keyExtractor={item => item.id}
             renderItem={({item}) => (
-              <View >
-              <TouchableOpacity style={styles.optionContainer} onPress={()=>{
-                navigation.navigate(item.title);
-              }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View>
+                <TouchableOpacity
+                  style={styles.optionContainer}
+                  onPress={() => {
+                    navigation.navigate(item.title);
+                  }}>
+                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <Image
+                      style={styles.optionContainerIcon}
+                      source={item.icon}
+                    />
+                    <Text style={styles.optionContainerText}>{item.title}</Text>
+                  </View>
                   <Image
                     style={styles.optionContainerIcon}
-                    source={item.icon}
+                    source={require('../assets/images/nextArrow.png')}
                   />
-                  <Text style={styles.optionContainerText}>{item.title}</Text>
-                </View>
-                <Image
-                  style={styles.optionContainerIcon}
-                  source={require('../assets/images/nextArrow.png')}
-                />
-              </TouchableOpacity>
-
-            </View>
+                </TouchableOpacity>
+              </View>
             )}
-          />
+          />)}
         </View>
+      </View>
+
+      <View style={{marginButtom: 30}}>
         <CustomButton title="Log In" />
       </View>
     </View>
@@ -117,28 +150,29 @@ export default MyProfile;
 const styles = StyleSheet.create({
   ProfileViewContainer: {
     width: '100%',
-    height: '26%',
+    height: 200,
     backgroundColor: Colors.light_green,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
+    padding: 20,
   },
   headingText: {
     textAlign: 'center',
-    padding: 20,
+    //   padding: 20,
     marginTop: 10,
     fontWeight: 600,
     fontSize: 18,
     color: 'white',
   },
   innerContainer: {
-    display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: 20,
   },
   avatarContainer: {
     width: 90,
     height: 90,
-    margin: 20,
+    marginRight: 10,
     borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center',
@@ -168,15 +202,20 @@ const styles = StyleSheet.create({
   optionContainer: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',marginHorizontal:20,
-    padding:20, borderBottomWidth: 1, borderBottomColor: '#ddd',
+    justifyContent: 'space-between',
+    paddingVertical: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
     alignItems: 'center',
   },
   optionContainerIcon: {
-    height: 24,
-    width: 24,
-
+    height: 22,
+    width: 22,
   },
   optionContainerText: {
-    color:'black', fontSize:18, marginLeft:15 }
+    color: '#434343',
+    fontSize: 18,
+    marginLeft: 15,
+    fontWeight: 400,
+  },
 });

@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  Vibration,
   View,
 } from 'react-native';
 import CustomButton, {ButtonStyle} from '../common/CustomButton';
@@ -22,22 +23,24 @@ const OnboardingScreen = () => {
         justifyContent: 'flex-end',
       }}
       source={require('../assets/images/backgroundImage.png')}>
-      <View style={styles.container}>
-        <Image
-          style={styles.logoStyle}
-          source={require('../assets/images/logo.png')}
-        />
+      <View style={{marginBottom: 40, padding: 20}}>
+        <View style={styles.container}>
+          <Image
+            style={styles.logoStyle}
+            source={require('../assets/images/logo.png')}
+          />
 
-        <Text style={styles.welcomeText}>{CommonText.welcomeText}</Text>
+          <Text style={styles.welcomeText}>{CommonText.welcomeText}</Text>
 
-        <Text style={styles.texts}>
-          Ger your groceries in as fast as one hour
-        </Text>
-
+          <Text style={styles.texts}>
+            Ger your groceries in as fast as one hour
+          </Text>
+        </View>
         <CustomButton
           title={'Get Started'}
+          buttonStyle={{}}
           onButtonPress={() => {
-            navigation.navigate('selectLocation');
+            navigation.replace('selectLocation');
           }}
         />
       </View>
@@ -48,11 +51,10 @@ export default OnboardingScreen;
 
 const styles = StyleSheet.create({
   container: {
-    width: 430,
-    height: 430,
+    width: '100%',
+    padding: 20,
 
     alignItems: 'center',
-    display: 'flex',
   },
   logoStyle: {
     width: 78,

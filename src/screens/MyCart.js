@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   FlatList,
   Image,
+  Modal,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
+import CustomButton from '../common/CustomButton';
 
 const MyCart = () => {
+
+  const [checkoutModelVisible, setCheckoutModelVisible] = useState(false);
   const cartItems = [
     {
       id: '1',
@@ -42,70 +46,137 @@ const MyCart = () => {
 
   return (
     <View>
-      <Text>My Cart</Text>
-      <View>
+      <Text
+        style={{
+          fontSize: 20,
+          fontWeight: 600,
+          color: 'black',
+          textAlign: 'center',
+          margin: 30,
+        }}>
+        My Cart
+      </Text>
+      <View style={{borderTopColor: '#ddd', borderTopWidth: 1}}>
         <FlatList
           data={cartItems}
           keyExtractor={item => item.id}
           renderItem={({item}) => (
             <View style={styles.FlatListContainer}>
-              <View>
+              <View style={{marginRight: 30}}>
                 <Image style={styles.image} source={item.image} />
               </View>
-              <View>
-                <Text>{item.itemName}</Text>
-                <Text>{item.quantity}</Text>
+              <View  style={{ flex:1}} >
                 <View style={styles.quantitySet}>
+                  <View>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: 600,
+                        color: 'black',
+                        textAlign: 'left',
+                      }}>
+                      {item.itemName}
+                    </Text>
+                    <Text
+                      style={{
+                        fontSize: 14,
+                        fontWeight: 500,
+                        color: 'grey',
+                        textAlign: 'left',
+                      }}>
+                      {item.quantity}, Price
+                    </Text>
+                  </View>
                   <TouchableOpacity>
                     <Image
                       style={styles.icon}
-                      source={require('../assets/images/minusIcon.png')}
-                    />
-                  </TouchableOpacity>
-                  <Text>1</Text>
-                  <TouchableOpacity>
-                    <Image
-                      style={styles.icon}
-                      source={require('../assets/images/plusIcon.png')}
+                      source={require('../assets/images/crossIcon.png')}
                     />
                   </TouchableOpacity>
                 </View>
-              </View>
-              <View>
-                <TouchableOpacity>
-                  <Image
-                    style={styles.icon}
-                    source={require('../assets/images/crossIcon.png')}
-                  />
-                </TouchableOpacity>
-                <Text>{item.price}</Text>
+                <View style={styles.quantitySet}>
+                  <View style={{flexDirection:'row', alignItems:'center',marginTop:15,  }}>
+                    <TouchableOpacity
+                      style={{
+                        borderColor: '#ddd',
+                        borderWidth: 1,
+                        borderRadius: 15,
+                        height: 45,
+                        width: 45,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                      onPress={() => {}}>
+                      <Image
+                        style={styles.icon}
+                        source={require('../assets/images/minusIcon.png')}
+                      />
+                    </TouchableOpacity>
+                    <Text   style={{
+                        fontSize: 16,
+                        fontWeight: 600,
+                        color: 'black',
+                        textAlign: 'left', marginHorizontal:10
+                      }}> 1 </Text>
+                    <TouchableOpacity
+                      style={{
+                        borderColor: '#ddd',
+                        borderWidth: 1,
+                        borderRadius: 15,
+                        height: 45,
+                        width: 45,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                      onPress={() => {}}>
+                      <Image
+                        style={styles.icon}
+                        source={require('../assets/images/plusIcon.png')}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  <Text style={{
+                        fontSize: 16,
+                        fontWeight: 700,
+                        color: 'black',
+                        textAlign: 'left',
+                      }}> {item.price}</Text>
+                </View>
               </View>
             </View>
           )}
         />
+         <CustomButton  title= "Go to Checkout" onButtonPress={()=>{setCheckoutModelVisible(!checkoutModelVisible)}}/>
+     
       </View>
+     
     </View>
   );
 };
 export default MyCart;
 const styles = StyleSheet.create({
   FlatListContainer: {
-    display: 'flex',
+  
     flexDirection: 'row',
-    justifyContent: 'space-between', borderBottomColor:"grey", borderBottomWidth:1, margin:10
+    borderBottomColor: '#ddd',
+    borderBottomWidth: 1,
+    marginHorizontal: 20,
+    paddingVertical: 25,
+flex:1
   },
   image: {
-    height: 100,
-    width: 100,
+    height: 80,
+    width: 80,
     resizeMode: 'contain',
   },
   quantitySet: {
-    display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+  
+       justifyContent:'space-between', flex:1 
   },
   icon: {
-    height: 20,
-    width: 20,
+    height: 28,
+    width: 28,
   },
 });

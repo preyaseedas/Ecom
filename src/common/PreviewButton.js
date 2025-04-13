@@ -15,7 +15,7 @@ export default PreviewButton;
 
 const styles = StyleSheet.create({
   prevButton: {
-    height: 17,
-    width: 10,
+    height: 24,
+    width: 24,
   },
 });
