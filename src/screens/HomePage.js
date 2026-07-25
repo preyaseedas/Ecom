@@ -13,12 +13,49 @@ import {
 //import {Searchbar} from 'react-native-paper';
 
 import {Colors} from '../common/Colors';
+import {FlatList} from 'react-native';
 //import { SearchBar } from '@rneui/themed';
 //import { SearchBar } from 'react-native-elements';
 
 const HomePage = props => {
   const navigation = useNavigation();
   const [searchText, setSearchText] = useState('');
+
+  const categoryItemList = [
+    {
+      id: 1,
+      img: require('../assets/images/fruits.png'),
+      name: 'Fruits & Vegetables',
+    },
+    {
+      id: 2,
+      img: require('../assets/images/breakfast.png'),
+      name: 'Breakfast',
+    },
+    {
+      id: 3,
+      img: require('../assets/images/sauce.png'),
+      name: 'Beverages',
+    },
+    {
+      id: 4,
+      img: require('../assets/images/meat.png'),
+      name: 'Meat & Fish',
+    },
+    {id: 5, img: require('../assets/images/chips.png'), name: 'Snacks'},
+    {id: 6, img: require('../assets/images/dairy.png'), name: 'Dairy'},
+  ];
+
+  const renderItem = ({item}) => (
+    <TouchableOpacity
+      style={styles.item}
+      onPress={() => {
+        navigation.navigate('category' ,{category : item.name});
+      }}>
+      <Image source={item.img} style={styles.image} />
+      <Text>{item.name}</Text>
+    </TouchableOpacity>
+  );
 
   return (
     <View>
@@ -27,7 +64,8 @@ const HomePage = props => {
           style={{
             display: 'flex',
             flexDirection: 'row',
-            justifyContent: 'space-between', alignItems:"center"
+            justifyContent: 'space-between',
+            alignItems: 'center',
           }}>
           <Text style={styles.appNamingText}>D,Grosse</Text>
           <Image
@@ -41,7 +79,7 @@ const HomePage = props => {
             navigation.navigate('selectLocation');
           }}>
           <View style={{flexDirection: 'row'}}>
-            {' '}
+
             <Image
               style={styles.logo}
               source={require('../assets/images/locationLogo.png')}
@@ -104,7 +142,8 @@ const HomePage = props => {
 
         <View
           style={{
-            height: 130, marginTop:15,
+            height: 130,
+            marginTop: 15,
             width: '100%',
             backgroundColor: 'red',
             borderRadius: 15,
@@ -140,42 +179,17 @@ const HomePage = props => {
         </View>
       </View>
 
-      <View style={styles.itemContainer}>
-        {[
-          {
-            id: 1,
-            img: require('../assets/images/fruits.png'),
-            name: 'Fruits & Vegetables',
-          },
-          {
-            id: 2,
-            img: require('../assets/images/breakfast.png'),
-            name: 'Breakfast',
-          },
-          {
-            id: 3,
-            img: require('../assets/images/sauce.png'),
-            name: 'Beverages',
-          },
-          {
-            id: 4,
-            img: require('../assets/images/meat.png'),
-            name: 'Meat & Fish',
-          },
-          {id: 5, img: require('../assets/images/chips.png'), name: 'Snacks'},
-          {id: 6, img: require('../assets/images/dairy.png'), name: 'Dairy'},
-        ].map(item => (
-          <TouchableOpacity
-            key={item.id}
-            style={styles.item}
-            onPress={() => {
-              navigation.navigate(item.name);
-            }}>
-            <Image source={item.img} style={styles.image} />
-            <Text>{item.name}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+
+        <FlatList
+          data={categoryItemList}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          numColumns={2}
+        columnWrapperStyle={styles.columnWrapper}
+        contentContainerStyle={styles.itemContainer}
+       //howsVerticalScrollIndicator={true}
+        />
+   
 
       <View
         style={{
@@ -240,18 +254,20 @@ const styles = StyleSheet.create({
     fontSize: 13,
     textAlign: 'center',
   },
+
   itemContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
     paddingHorizontal: 20,
+    paddingBottom: 30,
+  },
+  columnWrapper: {
+    justifyContent: 'space-between',
   },
   item: {
-    width: '47%',
-    alignItems: 'center',
+    width: '48%',
+    alignItems: 'center', justifyContent:'center',
     backgroundColor: '#F8F8F8',
     padding: 15,
-    marginVertical: 10,
+    marginVertical: 10, 
     borderRadius: 10,
     //shadowColor: '#000',
     // shadowOffset: {width: 0, height: 2},

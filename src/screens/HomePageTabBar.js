@@ -108,7 +108,7 @@ export default HomePageTabBar;
 
 const styles = StyleSheet.create({
   tabBar: {
-    height: 80,
+    height: 100,
     width: '100%',
     backgroundColor: 'white',
     borderTopLeftRadius: 20,
